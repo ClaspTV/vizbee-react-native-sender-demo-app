@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<resources>
+  <color name="splashscreen_background">#000000</color>
+  <color name="colorPrimary">#FF0000</color>
+
+  <color name="dark_mode_blue">#00172E</color>
+  <color name="scarlet">#FFC20017</color>
+  <color name="white">#FFFFFFFF</color>
+
+<!-- Background color of CastBar -->
+<color name="vzb_cast_bar_primary_color">#001D3A</color>
+<!-- Player button color -->
+<color name="vzb_cast_bar_secondary_color">#C20017</color>
+<!-- Title text color -->
+<color name="vzb_cast_bar_title_text_color">#FFFFFF</color>
+<!-- Subtitle text color -->
+<color name="vzb_cast_bar_subtitle_text_color">#C20017</color>
+<!-- Progress bar background color -->
+<color name="vzb_cast_bar_progress_bar_background_color">#4DC20017</color>
+<!-- Progress bar color -->
+<color name="vzb_cast_bar_progress_bar_color">#D9C20017</color>
+
+</resources>

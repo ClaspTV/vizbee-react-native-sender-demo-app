@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.Vizbee.Custom" parent="Theme.Vizbee.CustomLight" />
+
+    <!-- =============================================================== -->
+    <!-- Basic Style Customization Light Theme(Required)                 -->
+    <!-- =============================================================== -->
+
+    <!-- RemoteActivity theme -->
+    <style name="Theme.Vizbee.CustomLight" parent="Theme.Vizbee.Futura.Light">
+
+        <!-- Your app launcher icon -->
+        <item name="vzb_appIcon">@mipmap/ic_launcher</item>
+
+        <!-- Your app's theme colors -->
+        <!--
+          1. Primary Color - this is typically the background color used on most of your app screens
+          2. Secondary Color - this is the highlight or accent color used on buttons etc. in your app screens
+          3. Tertiary Color - this is the text color used in most of your app screens
+
+          Update the colors below to suit your app.
+        -->
+        <item name="vzb_primaryColor">@color/white</item>
+        <item name="vzb_secondaryColor">@color/scarlet</item>
+        <item name="vzb_tertiaryColor">@color/dark_mode_blue</item>
+
+        <item name="vzb_widgetSelectedColor">@color/white</item>
+        <item name="vzb_widgetEnabledBackgroundColor">#40000000</item>
+        <!-- Your app's theme fonts -->
+        <!--
+
+          fonts in Assets:
+          Provide fonts located in your assets folder including any nested directories.
+          i.e 'yourFont.<extension>' or 'fonts/yourFont.<extension>.
+
+          fonts in Resources:
+          Provide fonts located in your res/font folder by simply specifying the name of the font file
+          excluding any extension. i.e. 'yourFont'
+
+          Update the fonts below to suit your app.
+         -->
+        <!-- <item name="vzb_primaryFont">@font/roboto_bold</item>
+        <item name="vzb_secondaryFont">@font/roboto</item> -->
+
+        <!-- =============================================================== -->
+        <!-- Advanced Style Customization (Optional)                         -->
+        <!-- =============================================================== -->
+
+        <!-- Card background -->
+        <!--
+          Set this attribute if you prefer an image background for Vizbee screens
+        -->
+        <!-- <item name="vzb_backgroundLayerStyle">@style/Theme.Vizbee.Custom.BackgroundStyle</item> -->
+
+        <!-- -->
+        <!-- OVERLAY CARD -->
+        <!-- -->
+
+        <!--
+            Customize the Overlay cards as shown here
+            https://gist.github.com/vizbee/7e9613f76a546c8f9ed9087e91bdc7b1#customize-overlay-cards
+        -->
+
+        <item name="vzb_luminosityLayerOverlayStyle">
+            @style/Theme.Vizbee.FoxNews.LuminosityLayerOverlayStyle.Light
+        </item>
+
+        <item name="vzb_overlayTitleLabelStyle">
+            @style/Theme.Vizbee.FoxNews.OverlayTitleLabelStyle.Light
+        </item>
+        <item name="vzb_overlaySubtitleLabelStyle">
+            @style/Theme.Vizbee.FoxNews.OverlaySubtitleLabelStyle.Light
+        </item>
+        <item name="vzb_overlayCallToActionButtonStyle">
+            @style/Theme.Vizbee.FoxNews.OverlayCallToActionButton.Light
+        </item>
+
+        <!-- -->
+        <!-- INTERSTITIAL CARD -->
+        <!-- -->
+
+        <!--
+            Customize the Interstitial cards as shown here
+            https://gist.github.com/vizbee/7e9613f76a546c8f9ed9087e91bdc7b1#customize-interstitial-cards
+        -->
+
+        <!-- Titles & subtitles -->
+        <item name="vzb_textAppearanceTitle1">@style/Theme.Vizbee.FoxNews.TitleLabelStyle.Light</item>
+        <item name="vzb_titledImageViewTitleLabelStyle">
+            @style/Theme.Vizbee.FoxNews.TitledImageViewTitleLabelStyle.Light
+        </item>
+
+        <!-- Buttons -->
+        <item name="vzb_callToActionButtonStyle">
+            @style/Theme.Vizbee.FoxNews.CallToActionFilled.Light
+        </item>
+        <item name="vzb_deviceStatusViewDisconnectButtonStyle">
+            @style/Theme.Vizbee.FoxNews.CallToActionFilled.Light
+        </item>
+
+        <!-- -->
+        <!-- SPECIFIC CARD ATTRIBUTES -->
+        <!-- -->
+
+        <!-- CastIntroduction Card -->
+        <item name="vzb_castIntroductionView">@style/Theme.Vizbee.FoxNews.CastIntroductionView.Light
+        </item>
+        <item name="vzb_overlayContentLayout_castIntroduction">
+            @style/Theme.Vizbee.FoxNews.CastIntroductionOverlayContentLayout.Light
+        </item>
+
+        <!-- SmartPlay Card -->
+        <item name="vzb_smartPlayDeviceSelectionCardDeviceListViewOverlayStyle">
+            @style/Theme.Vizbee.FoxNews.SmartPlayCardOverlayDeviceListView.Light
+        </item>
+
+        <!-- AppInstall Card -->
+        <item name="vzb_appInstall_textStyle">@style/Theme.Vizbee.FoxNews.AppInstallTextStyle.Light
+        </item>
+        <item name="vzb_appInstall_subTextStyle">
+            @style/Theme.Vizbee.FoxNews.AppInstallSubTextStyle.Light
+        </item>
+        <item name="vzb_appInstall_refresh_buttonStyle">
+            @style/Theme.Vizbee.FoxNews.MinorAction.Light
+        </item>
+
+        <!-- Pairing Card -->
+        <item name="vzb_pairingScreen_pinNumberStyle">
+            @style/Theme.Vizbee.FoxNews.PairingPinPadButton.Light
+        </item>
+        <item name="vzb_pairingScreen_numPadButtonStyle">
+            @style/Theme.Vizbee.FoxNews.PairingPinPadButton.Light
+        </item>
+        <item name="vzb_pairingScreen_numPadSubmitButtonStyle">
+            @style/Theme.Vizbee.FoxNews.PairingPinPadSubmitButton.Light
+        </item>
+        <item name="vzb_pairingScreen_refresh_buttonStyle">
+            @style/Theme.Vizbee.FoxNews.MinorAction.Light
+        </item>
+
+        <!-- Player Card -->
+        <!--
+            Customize the Player card as shown here
+            https://gist.github.com/vizbee/7e9613f76a546c8f9ed9087e91bdc7b1#customize-player-card
+        -->
+
+        <item name="vzb_playerControlsStackViewStyle">
+            @style/Theme.Vizbee.FoxNews.PlayerControlsStackView.Light
+        </item>
+        <item name="vzb_playerControlsViewStyle">
+            @style/Theme.Vizbee.FoxNews.PlayerControlsView.Light
+        </item>
+        <item name="vzb_videoPlayerControlButtonStyle">
+            @style/Theme.Vizbee.FoxNews.VideoPlayerControlButton.Light
+        </item>
+        <item name="vzb_playerControlsViewPlayPauseButtonStyle">
+            @style/Theme.Vizbee.FoxNews.VideoPlayerPlayPauseButton.Light
+        </item>
+
+        <!-- Video & Audio SeekBars -->
+        <item name="vzb_seekBarVideoStyle">@style/Theme.Vizbee.FoxNews.VideoControlSeekBar.Light
+        </item>
+        <item name="vzb_seekBarAudioStyle">@style/Theme.Vizbee.FoxNews.AudioControlSeekBar.Light
+        </item>
+
+        <!-- -->
+        <!-- SPECIFIC VIEW ATTRIBUTES -->
+        <!-- -->
+
+        <!-- Used both in App install and Device Status View -->
+        <item name="vzb_deviceSelection_vizbeeIconStyle">
+            @style/Theme.Vizbee.FoxNews.AnimatedVizbeeIcon.Light
+        </item>
+
+        <!-- Device Status view -->
+        <item name="vzb_deviceStatusViewStyle">@style/Theme.Vizbee.FoxNews.DeviceStatusView.Light
+        </item>
+        <item name="vzb_deviceStatusViewLabelStyle">
+            @style/Theme.Vizbee.FoxNews.DeviceStatusViewLabelStyle.Light
+        </item>
+
+        <!-- Device List view -->
+        <item name="vzb_deviceListItemViewStyle">
+            @style/Theme.Vizbee.FoxNews.DeviceListItemViewStyle.Light
+        </item>
+        <item name="vzb_deviceListItemViewOverlayStyle">
+            @style/Theme.Vizbee.FoxNews.DeviceListItemViewStyle.Light
+        </item>
+
+        <!-- Playback controls -->
+        <item name="vzb_contentStatusViewStyle">
+            @style/Theme.Vizbee.FoxNews.PlayerBufferingStyle.Light
+        </item>
+
+        <!-- Device Info view -->
+        <item name="vzb_deviceInfoViewStyle">@style/Theme.Vizbee.FoxNews.DeviceInfoViewStyle.Light
+        </item>
+        <item name="vzb_deviceInfoViewIconStyle">
+            @style/Theme.Vizbee.FoxNews.DeviceInfoViewIconStyle.Light
+        </item>
+        <item name="vzb_deviceInfoViewNameLabelStyle">
+            @style/Theme.Vizbee.FoxNews.DeviceInfoViewLabelStyle.Light
+        </item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.CastIntroductionOverlayContentLayout.Light" parent="Widget.Vizbee.OverlayContentLayout">
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.LuminosityLayerOverlayStyle.Light" parent="@style/Widget.Vizbee.Futura.Light.LuminosityLayer.Overlay">
+        <item name="android:alpha">0</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.OverlayTitleLabelStyle.Light" parent="@style/Widget.Vizbee.OverlayTitleLabel">
+        <item name="android:textAllCaps">false</item>
+        <item name="vzb_deviceListTitleTextAppearance" tools:ignore="PrivateResource">
+            ?attr/vzb_textAppearanceTitle2
+        </item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.OverlaySubtitleLabelStyle.Light" parent="@style/Widget.Vizbee.OverlaySubtitleLabel">
+        <item name="android:textAppearance" tools:ignore="PrivateResource">
+            ?attr/vzb_textAppearanceBody
+        </item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.OverlayCallToActionButton.Light" parent="@style/Widget.Vizbee.Futura.Light.Button.OverlayCallToAction">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?attr/vzb_textAppearanceBody</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="vzb_cornerRadius">8dp</item>
+        <item name="vzb_backgroundEnabled">?attr/vzb_secondaryColor</item>
+    </style>
+
+    <!-- title label style-->
+    <style name="Theme.Vizbee.FoxNews.TitleLabelStyle.Light" parent="TextAppearance.Vizbee.Title1">
+        <item name="vzb_deviceListTitleTextAppearance" tools:ignore="PrivateResource">
+            ?attr/vzb_textAppearanceTitle2
+        </item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.TitledImageViewTitleLabelStyle.Light" parent="Widget.Vizbee.Futura.Light.TitledImageViewTitleLabel">
+        <item name="android:paddingTop">28dp</item>
+        <item name="vzb_deviceListTitleTextAppearance" tools:ignore="PrivateResource">
+            ?attr/vzb_textAppearanceTitle2
+        </item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.CallToActionFilled.Light" parent="@style/Widget.Vizbee.Futura.Light.Button.CallToAction">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?attr/vzb_textAppearanceBody</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="vzb_cornerRadius">8dp</item>
+        <item name="vzb_backgroundEnabled">?attr/vzb_secondaryColor</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.DeviceListViewTitleLabel.Light" parent="Widget.Vizbee.Futura.Light.DeviceListViewTitleLabel">
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.DeviceListItemViewStyle.Light" parent="Widget.Vizbee.Futura.Light.DeviceListItemView">
+        <item name="vzb_cornerRadius">5dp</item>
+        <item name="vzb_backgroundEnabled">@android:color/transparent</item>
+        <item name="vzb_backgroundDisabled">@android:color/transparent</item>
+        <item name="vzb_backgroundSelected">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.CastIntroductionView.Light" parent="Widget.Vizbee.Futura.Light.CastIntroductionView">
+        <item name="vzb_deviceListViewStyle">
+            @style/Theme.Vizbee.FoxNews.CastIntroductionViewDeviceListView.Light
+        </item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.CastIntroductionViewDeviceListView.Light" parent="Widget.Vizbee.Futura.Light.DeviceListView.CastIntroductionView">
+        <item name="vzb_deviceListRowStyle">
+            @style/Theme.Vizbee.FoxNews.CastIntroductionViewDeviceListItemView.Light
+        </item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.CastIntroductionViewDeviceListItemView.Light" parent="Widget.Vizbee.Futura.Light.DeviceListItemView.CastIntroductionView">
+        <item name="vzb_backgroundEnabled">@android:color/transparent</item>
+        <item name="vzb_backgroundDisabled">@android:color/transparent</item>
+        <item name="vzb_backgroundSelected">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.DeviceStatusView.Light" parent="Widget.Vizbee.Futura.Light.DeviceStatusView">
+        <item name="vzb_statusProgressStyle">android_native</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.DeviceStatusViewLabelStyle.Light" parent="Widget.Vizbee.Futura.Light.TitledImageViewTitleLabel">
+        <item name="android:textAllCaps">false</item>
+        <item name="vzb_deviceListTitleTextAppearance" tools:ignore="PrivateResource">
+            ?attr/vzb_textAppearanceTitle2
+        </item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.AnimatedVizbeeIcon.Light" parent="Widget.Vizbee.Futura.Light.AnimatedVizbeeIcon">
+        <item name="android:layout_marginTop">28dp</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.SmartPlayCardOverlayDeviceListView.Light" parent="Widget.Vizbee.Futura.Light.DeviceListView.SmartPlayCard.Overlay">
+        <item name="vzb_deviceListTitleTextAppearance">
+            @style/Theme.Vizbee.FoxNews.TitleLabelStyle.Light
+        </item>
+        <item name="vzb_enableListHeaderDivider">false</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.AppInstallTextStyle.Light" parent="VZB_AppInstallTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.AppInstallSubTextStyle.Light" parent="VZB_AppInstallSubTextStyle">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.MinorAction.Light" parent="Widget.Vizbee.Futura.Light.Button.MinorAction">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.PairingPinPadButton.Light" parent="Widget.Vizbee.Futura.Light.Button.PinPad">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.PairingPinPadSubmitButton.Light" parent="Widget.Vizbee.Futura.Light.Button.PinPad.Submit">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/vzb_primaryColor</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.PlayerControlsStackView.Light" parent="Widget.Vizbee.Futura.Light.PlayerControlsStackView">
+        <item name="vzb_deviceInfoViewStyle">
+            @style/Theme.Vizbee.FoxNews.PlayerCardDeviceInfoViewStyle.Light
+        </item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.PlayerControlsView.Light" parent="Widget.Vizbee.Futura.Light.PlayerControlsView">
+        <item name="vzb_disablePlayPauseButtonForLive">false</item>
+        <item name="vzb_playerControlButtons">@array/FoxNews_vizbee_playback_control</item>
+        <item name="vzb_playerControlButtonsCCSupported">
+            @array/FoxNews_vizbee_playback_control_cc_support
+        </item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.VideoPlayerControlButton.Light" parent="Widget.Vizbee.Futura.Light.Button.VideoPlayerControl">
+        <item name="vzb_srcColor">@color/white</item>
+        <item name="vzb_checkedSrcColor">@color/dark_mode_blue</item>
+        <item name="android:textStyle">bold</item>
+        <item name="vzb_backgroundEnabled">?attr/vzb_secondaryColor</item>
+        <item name="vzb_checkedBackgroundColor">?attr/vzb_secondaryColor</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.VideoPlayerPlayPauseButton.Light" parent="Widget.Vizbee.Futura.Light.Button.VideoPlayerControl.PlayPause">
+        <item name="vzb_srcColor">@color/white</item>
+        <item name="vzb_backgroundEnabled">?attr/vzb_secondaryColor</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.VideoControlSeekBar.Light" parent="Widget.Vizbee.Futura.Light.VideoControlSeekBar">
+        <item name="vzb_useCircularThumb">true</item>
+        <item name="vzb_thumbColor">?attr/vzb_secondaryColor</item>
+        <item name="vzb_progressColor">?attr/vzb_secondaryColor</item>
+        <item name="vzb_progressHeight">1dp</item>
+        <item name="vzb_thumbHeight">12dp</item>
+        <item name="vzb_thumbWidth">6dp</item>
+        <item name="android:layout_height">46dp</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.AudioControlSeekBar.Light" parent="Widget.Vizbee.Futura.Light.AudioControlSeekBar">
+        <item name="vzb_useCircularThumb">true</item>
+        <item name="vzb_thumbColor">?attr/vzb_secondaryColor</item>
+        <item name="vzb_progressColor">?attr/vzb_secondaryColor</item>
+        <item name="vzb_progressHeight">1dp</item>
+        <item name="vzb_thumbHeight">12dp</item>
+        <item name="vzb_thumbWidth">6dp</item>
+        <item name="android:layout_height">46dp</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.PlayerBufferingStyle.Light" parent="Widget.Vizbee.Futura.Light.ContentStatusView">
+        <item name="android:background">#66FFFFFF</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.DeviceInfoViewStyle.Light" parent="Widget.Vizbee.Futura.Light.DeviceInfoView">
+        <item name="vzb_layoutStyle">deviceNameAndIcon</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.PlayerCardDeviceInfoViewStyle.Light" parent="Widget.Vizbee.Futura.Light.DeviceInfoView">
+        <item name="vzb_layoutStyle">deviceNameAndIcon</item>
+        <item name="vzb_deviceIconColor">?attr/vzb_secondaryColor</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.DeviceInfoViewIconStyle.Light" parent="Widget.Vizbee.Futura.Light.DeviceInfoViewIcon">
+        <item name="android:layout_marginRight">6dp</item>
+    </style>
+
+    <style name="Theme.Vizbee.FoxNews.DeviceInfoViewLabelStyle.Light" parent="Widget.Vizbee.Futura.Light.DeviceInfoViewNameLabel">
+        <item name="android:textAllCaps">false</item>
+        <item name="vzb_deviceListTitleTextAppearance" tools:ignore="PrivateResource">
+            ?attr/vzb_textAppearanceTitle2
+        </item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <array name="FoxNews_vizbee_playback_control">
+        <item>@id/vzb_player_control_button_empty</item>
+        <item>@id/vzb_player_control_button_rewind_30_seconds</item>
+        <item>@id/vzb_player_control_button_forward_30_seconds</item>
+        <item>@id/vzb_player_control_button_empty</item>
+    </array>
+
+    <array name="FoxNews_vizbee_playback_control_cc_support">
+        <item>@id/vzb_player_control_button_empty</item>
+        <item>@id/vzb_player_control_button_closed_captions</item>
+        <item>@id/vzb_player_control_button_forward_30_seconds</item>
+        <item>@id/vzb_player_control_button_empty</item>
+    </array>
+
+</resources>
