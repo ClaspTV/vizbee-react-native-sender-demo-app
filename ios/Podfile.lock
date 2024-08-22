@@ -1210,6 +1210,27 @@ PODS:
     - React-logger (= 0.74.5)
     - React-perflogger (= 0.74.5)
     - React-utils (= 0.74.5)
+  - RNGestureHandler (2.18.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNVizbeeSenderSdk (1.1.32):
     - React
     - VizbeeKit
@@ -1278,6 +1299,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNVizbeeSenderSdk (from `../node_modules/react-native-vizbee-sender-sdk`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -1401,6 +1423,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   RNVizbeeSenderSdk:
     :path: "../node_modules/react-native-vizbee-sender-sdk"
   Yoga:
@@ -1463,6 +1487,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: cfbe85c3510c541ec6dc815c7729b41304b67961
   React-utils: f242eb7e7889419d979ca0e1c02ccc0ea6e43b29
   ReactCommon: f7da14a8827b72704169a48c929bcde802698361
+  RNGestureHandler: efed690b8493a00b99654043daeb1335276ac4a2
   RNVizbeeSenderSdk: c7b174a0dffff94711e9253ae2db94fa94696c93
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   VizbeeHomeOSKit: 4b0b58ee4abdac41005db135660f6f37a26bff84
