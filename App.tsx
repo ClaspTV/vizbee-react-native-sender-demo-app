@@ -1,15 +1,15 @@
-import React from 'react';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-import {StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import React from "react";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import {
   VizbeeCastBar,
   //@ts-ignore
-} from 'react-native-vizbee-sender-sdk';
+} from "react-native-vizbee-sender-sdk";
 
-import HomeScreen from './src/screens/home';
-import DetailScreen from './src/screens/detail';
+import { HomeScreen } from "./src/screens/HomeScreen";
+import { DetailScreen } from "./src/screens/DetailScreen";
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -21,12 +21,12 @@ const App = () => {
             <Stack.Screen
               name="Home"
               component={HomeScreen}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="DetailScreen"
               component={DetailScreen}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>
