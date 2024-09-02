@@ -65,7 +65,22 @@ First, install the pods:
 cd ios && pod install && cd ..
 ```
 
-Then, run the following command to start _iOS_ app:
+Then, if you want to run the app on a real iOS device, you need to set up your development team:
+
+1. Open the Xcode project:
+
+   ```bash
+   open ios/react-native-demo-app.xcworkspace
+   ```
+
+2. In Xcode, select the project in the Project Navigator.
+3. Select the target under the "Targets" section.
+4. Go to the "Signing & Capabilities" tab.
+5. In the "Team" dropdown, select your Apple Developer team.
+
+Make sure that the bundle identifier used in your project has the proper entitlements registered in your Apple Developer account.
+
+Finally, run the following command to start the _iOS_ app:
 
 ```bash
 # using npm
@@ -75,4 +90,6 @@ npm run ios
 yarn ios
 ```
 
-That's it! You should now have the `react-native-demo-app` running on your local machine.
+That's it! You should now have the `react-native-demo-app` running on your local machine or device.
+
+Note: If you encounter any issues related to code signing or provisioning when running on a real device, you may need to adjust your project's code signing settings in Xcode or register your device in your Apple Developer account.
