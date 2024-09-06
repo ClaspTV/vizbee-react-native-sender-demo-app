@@ -9,7 +9,7 @@ import {
 } from "react-native-vizbee-sender-sdk";
 
 import { HomeScreen } from "./src/screens/HomeScreen";
-import { DetailScreen } from "./src/screens/DetailScreen";
+import { PlayerScreen } from "./src/screens/PlayerScreen";
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -24,8 +24,8 @@ const App = () => {
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="DetailScreen"
-              component={DetailScreen}
+              name="Player"
+              component={PlayerScreen}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

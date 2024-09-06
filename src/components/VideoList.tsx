@@ -10,7 +10,7 @@ interface VideoListProps {
 
 export const VideoList: React.FC<VideoListProps> = ({ navigation }) => {
   const onSelectVideo = (item: VideoItem) => {
-    navigation.navigate("DetailScreen", { video: item });
+    navigation.navigate("Player", { video: item });
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -18,8 +18,10 @@ import { videos } from "../constants/VideoListContent";
 
 const Back = require("../../assets/back.png");
 
-export const DetailScreen = ({ route, navigation }: any) => {
-  const { video: initialVideo } = route.params;
+export const PlayerScreen = ({ route, navigation }: any) => {
+  const { video: initialVideo, resumePosition: initialResumePosition } =
+    route.params;
+
   const {
     currentVideo,
     isFullscreen,
@@ -27,34 +29,35 @@ export const DetailScreen = ({ route, navigation }: any) => {
     toggleFullscreen,
     invokeSmartPlay,
     onSelectVideo,
-  } = useVideoPlayer(initialVideo);
+    initialPosition,
+    setInitialPosition,
+  } = useVideoPlayer(initialVideo, initialResumePosition);
 
-  var { castingPosition, lastCastingGuid } = useVizbeeMedia();
-
+  const {
+    castingPosition,
+    lastCastingGuid,
+    resetLastCastingGuidAndCastingPosition,
+  } = useVizbeeMedia();
   const { isCasting, castingDevice, castingState } = useVizbeeSession();
-
-  const onConnected = () => {
-    invokeSmartPlay(currentVideo);
-  };
-
-  const onDisconnected = () => {
-    if (currentVideo.guid == lastCastingGuid) {
-      videoRef.current?.seek(castingPosition);
-    }
-    videoRef.current?.resume();
-    castingPosition = 0;
-  };
 
   useEffect(() => {
     if (castingState === "CONNECTED") {
-      onConnected();
+      invokeSmartPlay(currentVideo);
     } else if (castingState === "NOT_CONNECTED" && videoRef.current) {
-      onDisconnected();
+      videoRef.current.resume();
     }
-  }, [castingState, videoRef.current]);
+  }, [castingState, videoRef.current, currentVideo, invokeSmartPlay]);
 
   useEffect(() => {
-    invokeSmartPlay(currentVideo);
+    if (lastCastingGuid === currentVideo.guid) {
+      setInitialPosition(initialResumePosition || castingPosition);
+    }
+  }, [lastCastingGuid, castingPosition, currentVideo.guid]);
+
+  useEffect(() => {
+    if (!initialResumePosition) {
+      invokeSmartPlay(currentVideo);
+    }
   }, []);
 
   useEffect(() => {
@@ -64,6 +67,11 @@ export const DetailScreen = ({ route, navigation }: any) => {
   }, [isCasting]);
 
   const filteredVideos = videos.filter((v) => v.guid !== currentVideo.guid);
+
+  const resetInitialVideoPosition = () => {
+    setInitialPosition(0);
+    resetLastCastingGuidAndCastingPosition();
+  };
 
   return (
     <View style={styles.container}>
@@ -92,7 +100,10 @@ export const DetailScreen = ({ route, navigation }: any) => {
           <VideoPlayer
             video={currentVideo}
             videoRef={videoRef}
+            key={currentVideo.guid}
             toggleFullscreen={toggleFullscreen}
+            startPosition={initialPosition}
+            resetInitialVideoPosition={resetInitialVideoPosition}
           />
         )}
       </View>

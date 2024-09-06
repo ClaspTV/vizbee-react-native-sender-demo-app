@@ -15,12 +15,16 @@ interface VideoPlayerProps {
   video: VideoItem;
   videoRef: any;
   toggleFullscreen: () => void;
+  startPosition?: number;
+  resetInitialVideoPosition: () => void;
 }
 
 export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   video,
   videoRef,
   toggleFullscreen,
+  startPosition = 0,
+  resetInitialVideoPosition,
 }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
@@ -29,10 +33,16 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   const onLoad = (data: OnLoadData) => {
     setDuration(data.duration);
+    if (videoRef.current && startPosition > 0) {
+      seekTo(startPosition);
+    }
   };
 
   const onProgress = (data: OnProgressData) => {
     setCurrentTime(data.currentTime);
+    if (data.currentTime > startPosition && startPosition != 0) {
+      resetInitialVideoPosition();
+    }
   };
 
   const togglePlay = () => {
@@ -44,6 +54,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   };
 
   const seekTo = (time: number) => {
+    console.log(videoRef.current, "Seeking to", time);
     videoRef.current?.seek(time);
   };
 
@@ -57,7 +68,9 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     <View style={styles.container}>
       <Video
         ref={videoRef}
-        source={{ uri: video.streamUrl }}
+        source={{
+          uri: video.streamUrl,
+        }}
         style={styles.video}
         resizeMode="contain"
         onLoad={onLoad}

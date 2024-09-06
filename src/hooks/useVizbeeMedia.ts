@@ -1,10 +1,16 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 // @ts-ignore
 import { VizbeeManager } from "react-native-vizbee-sender-sdk";
 
 export const useVizbeeMedia = () => {
   const castingPosition = useRef(0);
   const lastCastingGuid = useRef("");
+  const listenerRef = useRef<any>(null);
+
+  const resetLastCastingGuidAndCastingPosition = useCallback(() => {
+    lastCastingGuid.current = "";
+    castingPosition.current = 0;
+  }, []);
 
   useEffect(() => {
     const handleMediaStatusChange = (mediaStatus: any) => {
@@ -14,15 +20,24 @@ export const useVizbeeMedia = () => {
       }
     };
 
-    VizbeeManager.addListener("VZB_MEDIA_STATUS", handleMediaStatusChange);
+    if (!listenerRef.current) {
+      listenerRef.current = VizbeeManager.addListener(
+        "VZB_MEDIA_STATUS",
+        handleMediaStatusChange
+      );
+    }
 
     return () => {
-      VizbeeManager.removeAllListeners("VZB_MEDIA_STATUS");
+      if (listenerRef.current) {
+        VizbeeManager.removeListener("VZB_MEDIA_STATUS", listenerRef.current);
+        listenerRef.current = null;
+      }
     };
   }, []);
 
   return {
     castingPosition: castingPosition.current,
     lastCastingGuid: lastCastingGuid.current,
+    resetLastCastingGuidAndCastingPosition,
   };
 };

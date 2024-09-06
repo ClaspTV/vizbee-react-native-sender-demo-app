@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 // @ts-ignore
 import { VizbeeManager } from "react-native-vizbee-sender-sdk";
 
@@ -8,16 +8,15 @@ export const useVizbeeSession = () => {
   const [castingState, setCastingState] = useState("");
 
   const previousSessionStateRef = useRef<string | null>(null);
+  const listenerRef = useRef<any>(null);
 
   const handleSessionStatusChange = (sessionStatus: any) => {
     const currentState = sessionStatus?.connectionState;
 
-    // If the current state is the same as the previous state, don't execute the implementation
     if (currentState === previousSessionStateRef.current) {
       return;
     }
 
-    // Update the previous state ref
     previousSessionStateRef.current = currentState;
     setCastingState(currentState);
     if (currentState === "CONNECTED") {
@@ -27,13 +26,11 @@ export const useVizbeeSession = () => {
           setCastingDevice(
             connectedDeviceInfo?.connectedDeviceFriendlyName || "TV"
           );
-          setCastingState(currentState);
         })
         .catch(() => {
           console.warn(`Failed to get connected receiver info`);
           setIsCasting(true);
           setCastingDevice("TV");
-          setCastingState(currentState);
         });
     } else {
       setIsCasting(false);
@@ -42,24 +39,29 @@ export const useVizbeeSession = () => {
   };
 
   useEffect(() => {
-    const listenForSessionStatus = () => {
-      VizbeeManager.addListener(
-        "VZB_SESSION_STATUS",
-        handleSessionStatusChange
-      );
-      VizbeeManager.getSessionState()
-        .then((sessionState: any) => {
-          handleSessionStatusChange({ connectionState: sessionState });
-        })
-        .catch(() => {
-          console.warn(`Failed to get Vizbee sessionState`);
-        });
+    const setupListener = async () => {
+      if (!listenerRef.current) {
+        listenerRef.current = VizbeeManager.addListener(
+          "VZB_SESSION_STATUS",
+          handleSessionStatusChange
+        );
+      }
+
+      try {
+        const sessionState = await VizbeeManager.getSessionState();
+        handleSessionStatusChange({ connectionState: sessionState });
+      } catch (error) {
+        console.warn(`Failed to get Vizbee sessionState`, error);
+      }
     };
 
-    listenForSessionStatus();
+    setupListener();
 
     return () => {
-      VizbeeManager.removeAllListeners("VZB_SESSION_STATUS");
+      if (listenerRef.current) {
+        VizbeeManager.removeListener("VZB_SESSION_STATUS", listenerRef.current);
+        listenerRef.current = null;
+      }
     };
   }, []);
 

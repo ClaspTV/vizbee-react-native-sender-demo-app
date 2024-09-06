@@ -3,9 +3,15 @@ import { VideoRef } from "react-native-video";
 // @ts-ignore
 import { VizbeeManager, VizbeeVideo } from "react-native-vizbee-sender-sdk";
 import { VideoItem } from "../types/VideoItem";
+import { Double } from "react-native/Libraries/Types/CodegenTypes";
 
-export const useVideoPlayer = (initialVideo: VideoItem) => {
+export const useVideoPlayer = (
+  initialVideo: VideoItem,
+  initialResumePosition: number
+) => {
   const [currentVideo, setCurrentVideo] = useState(initialVideo);
+  const [initialPosition, setInitialPosition] = useState(initialResumePosition);
+
   const [isFullscreen, setIsFullscreen] = useState(false);
   const videoRef = useRef<VideoRef>(null);
 
@@ -52,5 +58,7 @@ export const useVideoPlayer = (initialVideo: VideoItem) => {
     toggleFullscreen,
     invokeSmartPlay,
     onSelectVideo,
+    initialPosition,
+    setInitialPosition,
   };
 };

@@ -6,13 +6,32 @@ import {
   //@ts-ignore
 } from "react-native-vizbee-sender-sdk";
 import { VideoList } from "../components/VideoList";
+import { useVizbeeSession } from "../hooks/useVizbeeSession";
+import { useVizbeeMedia } from "../hooks/useVizbeeMedia";
+import { videos } from "../constants/VideoListContent";
 
 export const HomeScreen = ({ navigation }: { navigation: any }) => {
+  const { castingState } = useVizbeeSession();
+  const { castingPosition, lastCastingGuid } = useVizbeeMedia();
+
   useEffect(() => {
     setTimeout(() => {
       VizbeeManager.smartPrompt();
     }, 2000);
   }, []);
+
+  useEffect(() => {
+    if (castingState === "NOT_CONNECTED" && lastCastingGuid) {
+      const videoItem = videos.find((video) => video.guid === lastCastingGuid);
+
+      if (videoItem) {
+        navigation.navigate("Player", {
+          video: videoItem,
+          resumePosition: castingPosition,
+        });
+      }
+    }
+  }, [castingState, lastCastingGuid, castingPosition, navigation]);
 
   return (
     <View style={styles.container}>
