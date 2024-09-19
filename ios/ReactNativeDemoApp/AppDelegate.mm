@@ -15,7 +15,7 @@
   // Initialize Vizbee SDK
     VZBOptions *options = [VZBOptions new];
     options.uiConfig = [VizbeeStyles darkTheme];
-    [[VizbeeBootstrap getInstance] initialize:@"vzb7628925482" withOptions:options];
+    [[VizbeeBootstrap getInstance] initialize:@"vzb2000001" withOptions:options];
 
   self.initialProps = @{};
 
