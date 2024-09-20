@@ -1,6 +1,6 @@
-# react-native-demo-app
+# vizbee-react-native-demo-app
 
-This README provides instructions on how to set up and run the react-native-demo-app.
+This README provides instructions on how to set up and run the vizbee-react-native-demo-app.
 
 ## Getting Started
 
@@ -12,10 +12,10 @@ Clone the repository using one of the following commands:
 
 ```bash
 # Using SSH
-git clone git@github.com:ClaspTV/react-native-demo-app.git
+git clone git@github.com:ClaspTV/vizbee-react-native-demo-app.git
 
 # OR using HTTPS
-git clone https://github.com/ClaspTV/react-native-demo-app.git
+git clone https://github.com/ClaspTV/vizbee-react-native-demo-app.git
 ```
 
 ### 2. Install Dependencies
@@ -23,8 +23,14 @@ git clone https://github.com/ClaspTV/react-native-demo-app.git
 After cloning the repository, navigate to the project directory and install the necessary dependencies:
 
 ```bash
-cd react-native-demo-app
-npm install --legacy-peer-deps
+cd vizbee-react-native-demo-app
+
+# using npm
+npm install
+
+# OR using Yarn
+yarn install
+
 ```
 
 ### 3. Start the Metro Server
@@ -70,7 +76,7 @@ Then, if you want to run the app on a real iOS device, you need to set up your d
 1. Open the Xcode project:
 
    ```bash
-   open ios/react-native-demo-app.xcworkspace
+   open ios/ReactNativeDemoApp.xcworkspace
    ```
 
 2. In Xcode, select the project in the Project Navigator.
@@ -90,6 +96,6 @@ npm run ios
 yarn ios
 ```
 
-That's it! You should now have the `react-native-demo-app` running on your local machine or device.
+That's it! You should now have the `vizbee-react-native-demo-app` running on your local machine or device.
 
 Note: If you encounter any issues related to code signing or provisioning when running on a real device, you may need to adjust your project's code signing settings in Xcode or register your device in your Apple Developer account.
