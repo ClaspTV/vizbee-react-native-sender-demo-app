@@ -5,6 +5,8 @@ import {
   VizbeeManager,
   //@ts-ignore
 } from "react-native-vizbee-sender-sdk";
+import { VizbeeHomeSSOManager } from "react-native-vizbee-homesso-sender-sdk";
+import { RNDemoAppVizbeeHomeSSODelegate } from "../homesso/RNDemoAppVizbeeHomeSSODelegate";
 import { VideoList } from "../components/VideoList";
 import { useVizbeeSession } from "../hooks/useVizbeeSession";
 import { useVizbeeMedia } from "../hooks/useVizbeeMedia";
@@ -15,6 +17,10 @@ export const HomeScreen = ({ navigation }: { navigation: any }) => {
   const { castingPosition, lastCastingGuid } = useVizbeeMedia();
 
   useEffect(() => {
+
+    const manager = VizbeeHomeSSOManager.getInstance();
+    manager.start(new RNDemoAppVizbeeHomeSSODelegate());
+
     setTimeout(() => {
       VizbeeManager.smartPrompt();
     }, 2000);
