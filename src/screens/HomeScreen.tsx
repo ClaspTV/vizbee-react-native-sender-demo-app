@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { StyleSheet, Text, View, StatusBar, TouchableOpacity } from "react-native";
 import {
   VizbeeCastButton,
   VizbeeManager,
@@ -11,13 +11,13 @@ import { VideoList } from "../components/VideoList";
 import { useVizbeeSession } from "../hooks/useVizbeeSession";
 import { useVizbeeMedia } from "../hooks/useVizbeeMedia";
 import { videos } from "../constants/VideoListContent";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const HomeScreen = ({ navigation }: { navigation: any }) => {
   const { castingState } = useVizbeeSession();
   const { castingPosition, lastCastingGuid } = useVizbeeMedia();
 
   useEffect(() => {
-
     const manager = VizbeeHomeSSOManager.getInstance();
     manager.start(new RNDemoAppVizbeeHomeSSODelegate());
 
@@ -39,13 +39,22 @@ export const HomeScreen = ({ navigation }: { navigation: any }) => {
     }
   }, [castingState, lastCastingGuid, castingPosition, navigation]);
 
+  const handleSettingsPress = () => {
+    navigation.navigate('Settings');
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="lightblue" barStyle="dark-content" />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Vizbee</Text>
-        <View style={styles.castContainer}>
-          <VizbeeCastButton style={styles.castButton} />
+        <View style={styles.headerRight}>
+          <TouchableOpacity onPress={handleSettingsPress} style={styles.settingsButton}>
+            <Text style={styles.settingsIcon}>⚙️</Text>
+          </TouchableOpacity>
+          <View style={styles.castContainer}>
+            <VizbeeCastButton style={styles.castButton} />
+          </View>
         </View>
       </View>
       <VideoList navigation={navigation} />
@@ -71,6 +80,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     color: "#000000",
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  settingsButton: {
+    marginRight: 16,
+    padding: 4,
+    width: 32,
+    height: 32,
+  },
+  settingsIcon: {
+    fontSize: 20,
   },
   castContainer: {
     marginRight: 16,

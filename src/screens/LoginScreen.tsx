@@ -1,27 +1,28 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FC, useState } from 'react';
 import {
-  View,
+  ActivityIndicator,
+  Alert,
+  Platform,
+  StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
-  StyleSheet,
   ToastAndroid,
-  Platform,
-  Alert
+  TouchableOpacity,
+  View
 } from 'react-native';
-import { storage } from '../homesso/storage';
-import { AccountManager } from '../homesso/AccountManager';
-import { NavigationService } from '../utils/NavigationService';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { RootStackParamList } from '../../App';
+import { AccountManager } from '../account/AccountManager';
+import { headerStyles } from '../styles/HeaderStyles';
+import { Storage } from '../utils/Storage';
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-export const LoginScreen: FC<LoginScreenProps> = ({ route, navigation }) => {
+export const LoginScreen: FC<LoginScreenProps> = ({ navigation, route }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  const LOG_TAG = 'LoginScreen';
+  const [isLoading, setIsLoading] = useState(false);
 
   const showToast = (message: string) => {
     if (Platform.OS === 'android') {
@@ -32,33 +33,53 @@ export const LoginScreen: FC<LoginScreenProps> = ({ route, navigation }) => {
   };
 
   const handleSubmit = async () => {
+    if (!username || !password) {
+      Alert.alert('Error', 'Please enter both username and password');
+      return;
+    }
+
+    setIsLoading(true);
     try {
       const trimmedUsername = username.trim().toLowerCase();
       const trimmedPassword = password.trim();
 
       const authToken = await AccountManager.signIn(trimmedUsername, trimmedPassword);
-      console.log(`${LOG_TAG}: SignIn successful authToken = ${authToken}`);
+      if (!authToken) {
+        throw new Error('Failed to get valid auth token');
+      }
       
-      showToast('Welcome!');
-      await storage.setAuthToken(authToken);
-      await AccountManager.updateRegCodeStatus(authToken);
+      console.log('SignIn successful authToken = ', authToken);
+      showToast(`Successfully signed in as ${trimmedUsername}`);
+      await Storage.setAuthToken(authToken);
+      
+      if (route.params.isFromTVSignIn) {
+        await AccountManager.updateRegCodeStatus(authToken);
+      }
+      
+      if (route.params?.onSignInComplete) {
+        route.params.onSignInComplete();
+      }
       
       navigation.goBack();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'UNKNOWN';
-      console.log(`${LOG_TAG}: SignIn failed with error = ${errorMessage}`);
+      console.log('SignIn failed with error = ', errorMessage);
       showToast(`SignIn failed with error = ${errorMessage}`);
-      navigation.goBack();
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.loginBox}>
-        <Text style={styles.title}>Vizbee Login</Text>
+      <View style={headerStyles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={headerStyles.backButton}>
+          <Text style={headerStyles.backArrow}>←</Text>
+        </TouchableOpacity>
+        <Text style={headerStyles.headerTitle}>Vizbee Login</Text>
+      </View>
 
-        <View style={styles.spacing} />
-
+      <View style={styles.content}>
         <TextInput
           style={styles.input}
           placeholder="Username"
@@ -67,9 +88,8 @@ export const LoginScreen: FC<LoginScreenProps> = ({ route, navigation }) => {
           onChangeText={setUsername}
           autoCapitalize="none"
           autoCorrect={false}
+          editable={!isLoading}
         />
-
-        <View style={styles.spacing} />
 
         <TextInput
           style={styles.input}
@@ -78,15 +98,19 @@ export const LoginScreen: FC<LoginScreenProps> = ({ route, navigation }) => {
           value={password}
           onChangeText={setPassword}
           secureTextEntry
+          editable={!isLoading}
         />
 
-        <View style={styles.spacing} />
-
         <TouchableOpacity
-          style={[styles.button, styles.submitButton]}
+          style={[styles.button, isLoading && styles.buttonDisabled]}
           onPress={handleSubmit}
+          disabled={isLoading}
         >
-          <Text style={styles.buttonText}>Submit</Text>
+          {isLoading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={styles.buttonText}>Submit</Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>
@@ -97,19 +121,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#00649B',
+  },
+  content: {
     padding: 16,
-  },
-  loginBox: {
-    width: '100%',
-    marginTop: 20,
-  },
-  title: {
-    fontSize: 18,
-    color: 'white',
-    textAlign: 'center',
-  },
-  spacing: {
-    height: 8,
   },
   input: {
     height: 48,
@@ -117,21 +131,23 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'white',
     color: 'white',
+    marginBottom: 16,
     paddingHorizontal: 8,
   },
   button: {
     height: 48,
+    backgroundColor: '#005C91',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
-    backgroundColor: '#005C91',
     marginTop: 16,
   },
-  submitButton: {
-    backgroundColor: '#005C91',
+  buttonDisabled: {
+    opacity: 0.7,
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
+    fontWeight: '600',
   },
 });

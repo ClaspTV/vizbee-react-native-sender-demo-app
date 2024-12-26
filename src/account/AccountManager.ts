@@ -1,4 +1,4 @@
-import { storage } from './storage';
+import { Storage } from '../utils/Storage';
 import { getDeviceId } from '../utils/DeviceUtils';
 
 // Error codes enum
@@ -47,8 +47,11 @@ export class AccountManager {
                 AccountManager.SIGN_IN_TOTAL_TIMEOUT
             );
 
-            const { authToken } = await response.json();
-            return authToken; // authToken
+            const data = await response.json();
+            if (!data.authToken) {
+                throw new Error('Invalid auth token received from server');
+            }
+            return data.authToken;
         } catch (error) {
             console.log(
                 `${AccountManager.LOG_TAG}: SignIn failed with error=`,
@@ -64,7 +67,7 @@ export class AccountManager {
     public static async updateRegCodeStatus(authToken: string): Promise<void> {
         console.log(`${AccountManager.LOG_TAG}: In RegCode update`);
         
-        const regCode = await storage.getRegCode();
+        const regCode = await Storage.getRegCode();
         if (!regCode) {
             throw new Error('RegCode not found');
         }
@@ -77,7 +80,8 @@ export class AccountManager {
         };
 
         const headers = {
-            'Authorization': authToken
+            'Authorization': authToken,
+            'Content-Type': 'application/json'
         };
 
         try {
@@ -98,6 +102,42 @@ export class AccountManager {
         }
     }
 
+    /**
+     * Sign out user - continues with local sign out even if server fails
+     */
+    public static async signOut(authToken: string): Promise<void> {
+        console.log(`${AccountManager.LOG_TAG}: In sign out with auth token = ${authToken}`);
+        
+        const url = `${AccountManager.BASE_URL}/signout`;
+        console.log(`${AccountManager.LOG_TAG}: fetch url = ${url}`);
+
+        const headers = {
+            'Authorization': authToken,
+            'Content-Type': 'application/json'
+        };
+
+        const body = {
+            deviceId: await getDeviceId()
+        };
+
+        try {
+            await AccountManager.executeWithRetry(
+                () => AccountManager.makeRequest(url, body, headers),
+                AccountManager.shouldRetrySignOut,
+                AccountManager.MAX_RETRIES,
+                AccountManager.COMMAND_TIMEOUT,
+                AccountManager.TOTAL_TIMEOUT
+            );
+            console.log(`${AccountManager.LOG_TAG}: Sign out successful`);
+        } catch (error) {
+            console.log(
+                `${AccountManager.LOG_TAG}: Sign out failed with error=`,
+                error instanceof Error ? error.message : 'UNKNOWN'
+            );
+            // Don't throw error for sign out to allow local sign out to proceed
+        }
+    }
+
     private static async makeRequest(
         url: string,
         body: object,
@@ -107,7 +147,7 @@ export class AccountManager {
         const timeoutId = setTimeout(() => controller.abort(), AccountManager.COMMAND_TIMEOUT);
 
         try {
-            console.log(`${AccountManager.LOG_TAG}: Making request to url=${url}, body=${JSON.stringify(body)}, header=${JSON.stringify(headers)}`);
+            console.log(`${AccountManager.LOG_TAG}: Making request to url=${url}, body=${JSON.stringify(body)}, headers=${JSON.stringify(headers)}`);
             const response = await fetch(url, {
                 method: 'POST',
                 headers,
@@ -134,6 +174,20 @@ export class AccountManager {
         
         const vizbeeError = error as VizbeeError;
         if (vizbeeError.code === VizbeeErrorCodes.HTTP_4XX_ERROR) {
+            return false;
+        }
+        return true;
+    }
+
+    private static shouldRetrySignOut(error: Error): boolean {
+        console.log(`${AccountManager.LOG_TAG}: shouldRetrySignOut received error=`, error);
+        
+        const vizbeeError = error as VizbeeError;
+        if (vizbeeError.code === VizbeeErrorCodes.HTTP_4XX_ERROR) {
+            return false;
+        }
+        // Don't retry on 500 errors for signout
+        if (error.message.includes('status: 500')) {
             return false;
         }
         return true;

@@ -8,7 +8,7 @@ const StorageKeys = {
 
 const LOG_TAG = 'Storage';
 
-export const storage = {
+export const Storage = {
     getAuthToken: async (): Promise<string | null> => {
         try {
             return await AsyncStorage.getItem(StorageKeys.AUTH_TOKEN);

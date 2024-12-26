@@ -1,7 +1,7 @@
-import {VizbeeHomeSSODelegate, VizbeeHomeSSOSignInInfo, VizbeeHomeSSOTVSignInStatus } from 'react-native-vizbee-homesso-sender-sdk';
+import {VizbeeHomeSSODelegate, VizbeeHomeSSOSignInInfo, VizbeeHomeSSOSignInState, VizbeeHomeSSOTVSignInStatus } from 'react-native-vizbee-homesso-sender-sdk';
 
-import { storage } from './storage';
-import { AccountManager } from './AccountManager';
+import { Storage } from '../utils/Storage';
+import { AccountManager } from '../account/AccountManager';
 import { NavigationService } from '../utils/NavigationService';
 
 export class RNDemoAppVizbeeHomeSSODelegate implements VizbeeHomeSSODelegate {
@@ -10,8 +10,8 @@ export class RNDemoAppVizbeeHomeSSODelegate implements VizbeeHomeSSODelegate {
         try {
           console.log(`Getting signed-in info`);
           
-          const authToken = await storage.getAuthToken();
-          const testcase = await storage.getHomeSSOTestcase();
+          const authToken = await Storage.getAuthToken();
+          const testcase = await Storage.getHomeSSOTestcase();
           
           const signInInfo: VizbeeHomeSSOSignInInfo = {
             signInType: 'MVPD',
@@ -39,12 +39,13 @@ export class RNDemoAppVizbeeHomeSSODelegate implements VizbeeHomeSSODelegate {
         try {
           console.log(`Received TV sign-in status:`, status);
     
-          if (status.signInState === 'SIGN_IN_IN_PROGRESS' && status.signInType === 'MVPD') {
+          console.log(`VizbeeHomeSSOSignInState.IN_PROGRESS:`, VizbeeHomeSSOSignInState.IN_PROGRESS);
+          if (status.signInState === VizbeeHomeSSOSignInState.IN_PROGRESS && status.signInType === 'MVPD') {
             const regCode = status.customData?.regcode;
     
             if (regCode) {
-              await storage.setRegCode(regCode);
-              const authToken = await storage.getAuthToken();
+              await Storage.setRegCode(regCode);
+              const authToken = await Storage.getAuthToken();
     
               if (!authToken) {
                 NavigationService.navigate('Login', { isFromTVSignIn: true });
