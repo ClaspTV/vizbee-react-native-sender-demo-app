@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,14 +6,13 @@ import {
   StyleSheet,
   Alert,
   ActivityIndicator,
-  Image
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { NavigationService } from '../utils/NavigationService';
 import { Storage } from '../utils/Storage';
 import { AccountManager } from '../account/AccountManager';
 import { RootStackParamList } from '../../App';
 import { headerStyles } from '../styles/HeaderStyles';
+import { Colors } from '../constants/Colors';
 
 type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, 'Settings'>;
 
@@ -21,24 +20,22 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
-
-  const checkAuthStatus = async () => {
+  const checkAuthStatus = useCallback(async () => {
     const authToken = await Storage.getAuthToken();
     setIsSignedIn(Boolean(authToken));
-  };
+  }, []);
 
-  const handleSignInPress = () => {
+  const onSignInComplete = useCallback(() => {
+    checkAuthStatus();
+    navigation.goBack();
+  }, [navigation]);
+
+  const handleSignInPress = useCallback(() => {
     navigation.navigate('Login', { 
       isFromTVSignIn: false,
-      onSignInComplete: () => {
-        checkAuthStatus();
-        navigation.goBack();
-      }
+      onSignInComplete 
     });
-  };
+  }, [navigation, onSignInComplete]);
 
   const handleSignOutPress = async () => {
     setIsLoading(true);
@@ -56,6 +53,10 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -75,7 +76,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
           {isSignedIn ? 'Sign Out' : 'Sign In'}
         </Text>
         {isLoading ? (
-          <ActivityIndicator size="small" color="#666666" />
+          <ActivityIndicator size="small" color={Colors.text.secondary} />
         ) : (
           <Text style={styles.chevron}>›</Text>
         )}
@@ -87,27 +88,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  header: {
-    backgroundColor: 'lightblue',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    height: 56,
-  },
-  backButton: {
-    marginRight: 16,
-    padding: 4,
-  },
-  backArrow: {
-    fontSize: 24,
-    color: '#000000',
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#000000',
+    backgroundColor: Colors.surfaceBackground,
   },
   menuItem: {
     flexDirection: 'row',
@@ -115,14 +96,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
+    borderBottomColor: Colors.border,
   },
   menuText: {
     fontSize: 16,
-    color: '#000000',
+    color: Colors.text.primary,
   },
   chevron: {
     fontSize: 24,
-    color: '#666666',
-  }
+    color: Colors.text.secondary,
+  },
 });

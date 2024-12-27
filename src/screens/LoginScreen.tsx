@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-
+import { Colors } from '../constants/Colors';
 import { RootStackParamList } from '../../App';
 import { AccountManager } from '../account/AccountManager';
 import { headerStyles } from '../styles/HeaderStyles';
@@ -118,36 +118,36 @@ export const LoginScreen: FC<LoginScreenProps> = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#00649B',
-  },
-  content: {
-    padding: 16,
-  },
-  input: {
-    height: 48,
-    width: '100%',
-    borderBottomWidth: 1,
-    borderBottomColor: 'white',
-    color: 'white',
-    marginBottom: 16,
-    paddingHorizontal: 8,
-  },
-  button: {
-    height: 48,
-    backgroundColor: '#005C91',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
-    marginTop: 16,
-  },
-  buttonDisabled: {
-    opacity: 0.7,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
+    container: {
+      flex: 1,
+      backgroundColor: Colors.primary,
+    },
+    content: {
+      padding: 16,
+    },
+    input: {
+      height: 48,
+      width: '100%',
+      borderBottomWidth: 1,
+      borderBottomColor: Colors.text.white,
+      color: Colors.text.white,
+      marginBottom: 16,
+      paddingHorizontal: 8,
+    },
+    button: {
+      height: 48,
+      backgroundColor: Colors.primaryDark,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 4,
+      marginTop: 16,
+    },
+    buttonDisabled: {
+      opacity: 0.7,
+    },
+    buttonText: {
+      color: Colors.text.white,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+  });

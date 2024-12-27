@@ -1,15 +1,7 @@
+// src/account/AccountManager.ts
 import { Storage } from '../utils/Storage';
 import { getDeviceId } from '../utils/DeviceUtils';
-
-// Error codes enum
-export const VizbeeErrorCodes = {
-    HTTP_4XX_ERROR: 'HTTP_4XX_ERROR'
-} as const;
-
-// Error interface
-interface VizbeeError extends Error {
-    code?: string;
-}
+import { NetworkService } from '../utils/NetworkService';
 
 export class AccountManager {
     private static LOG_TAG = 'AccountManager';
@@ -39,9 +31,9 @@ export class AccountManager {
         };
 
         try {
-            const response = await AccountManager.executeWithRetry(
-                () => AccountManager.makeRequest(url, body, headers),
-                AccountManager.shouldRetry,
+            const response = await NetworkService.executeWithRetry(
+                () => NetworkService.makeRequest(url, body, headers, AccountManager.COMMAND_TIMEOUT),
+                NetworkService.defaultShouldRetry,
                 AccountManager.MAX_RETRIES,
                 AccountManager.COMMAND_TIMEOUT,
                 AccountManager.SIGN_IN_TOTAL_TIMEOUT
@@ -85,9 +77,9 @@ export class AccountManager {
         };
 
         try {
-            await AccountManager.executeWithRetry(
-                () => AccountManager.makeRequest(url, body, headers),
-                AccountManager.shouldRetry,
+            await NetworkService.executeWithRetry(
+                () => NetworkService.makeRequest(url, body, headers, AccountManager.COMMAND_TIMEOUT),
+                NetworkService.defaultShouldRetry,
                 AccountManager.MAX_RETRIES,
                 AccountManager.COMMAND_TIMEOUT,
                 AccountManager.TOTAL_TIMEOUT
@@ -121,8 +113,8 @@ export class AccountManager {
         };
 
         try {
-            await AccountManager.executeWithRetry(
-                () => AccountManager.makeRequest(url, body, headers),
+            await NetworkService.executeWithRetry(
+                () => NetworkService.makeRequest(url, body, headers, AccountManager.COMMAND_TIMEOUT),
                 AccountManager.shouldRetrySignOut,
                 AccountManager.MAX_RETRIES,
                 AccountManager.COMMAND_TIMEOUT,
@@ -138,104 +130,14 @@ export class AccountManager {
         }
     }
 
-    private static async makeRequest(
-        url: string,
-        body: object,
-        headers: Record<string, string>
-    ): Promise<Response> {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), AccountManager.COMMAND_TIMEOUT);
-
-        try {
-            console.log(`${AccountManager.LOG_TAG}: Making request to url=${url}, body=${JSON.stringify(body)}, headers=${JSON.stringify(headers)}`);
-            const response = await fetch(url, {
-                method: 'POST',
-                headers,
-                body: JSON.stringify(body),
-                signal: controller.signal
-            });
-
-            if (!response.ok) {
-                const error = new Error(`HTTP error! status: ${response.status}`) as VizbeeError;
-                error.code = response.status >= 400 && response.status < 500 
-                    ? VizbeeErrorCodes.HTTP_4XX_ERROR 
-                    : 'HTTP_ERROR';
-                throw error;
-            }
-
-            return response;
-        } finally {
-            clearTimeout(timeoutId);
-        }
-    }
-
-    private static shouldRetry(error: Error): boolean {
-        console.log(`${AccountManager.LOG_TAG}: shouldRetry received error=`, error);
-        
-        const vizbeeError = error as VizbeeError;
-        if (vizbeeError.code === VizbeeErrorCodes.HTTP_4XX_ERROR) {
-            return false;
-        }
-        return true;
-    }
-
+    /**
+     * Custom retry strategy for sign out
+     */
     private static shouldRetrySignOut(error: Error): boolean {
-        console.log(`${AccountManager.LOG_TAG}: shouldRetrySignOut received error=`, error);
-        
-        const vizbeeError = error as VizbeeError;
-        if (vizbeeError.code === VizbeeErrorCodes.HTTP_4XX_ERROR) {
-            return false;
+        if (NetworkService.defaultShouldRetry(error)) {
+            // Don't retry on 500 errors for signout
+            return !error.message.includes('status: 500');
         }
-        // Don't retry on 500 errors for signout
-        if (error.message.includes('status: 500')) {
-            return false;
-        }
-        return true;
-    }
-
-    private static async executeWithRetry(
-        operation: () => Promise<any>,
-        shouldRetry: (error: Error) => boolean,
-        maxRetries: number,
-        timeout: number,
-        totalTimeout: number
-    ): Promise<any> {
-        const startTime = Date.now();
-        let retryCount = 0;
-
-        while (retryCount < maxRetries) {
-            try {
-                if (Date.now() - startTime > totalTimeout) {
-                    throw new Error('Total timeout exceeded');
-                }
-
-                return await operation();
-            } catch (error) {
-                if (error instanceof Error) {
-                    if (!shouldRetry(error) || retryCount === maxRetries - 1) {
-                        throw error;
-                    }
-
-                    const delay = Math.min(
-                        1000 * Math.pow(2, retryCount), 
-                        totalTimeout - (Date.now() - startTime)
-                    );
-                    
-                    if (delay <= 0) {
-                        throw new Error('Total timeout exceeded during retry delay');
-                    }
-
-                    console.log(
-                        `${AccountManager.LOG_TAG}: Retry attempt ${retryCount + 1} of ${maxRetries}, waiting ${delay}ms`
-                    );
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    retryCount++;
-                } else {
-                    throw error;
-                }
-            }
-        }
-
-        throw new Error('Max retries exceeded');
+        return false;
     }
 }

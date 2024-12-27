@@ -12,6 +12,7 @@ import { useVizbeeSession } from "../hooks/useVizbeeSession";
 import { useVizbeeMedia } from "../hooks/useVizbeeMedia";
 import { videos } from "../constants/VideoListContent";
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Colors } from '../constants/Colors';
 
 export const HomeScreen = ({ navigation }: { navigation: any }) => {
   const { castingState } = useVizbeeSession();
@@ -19,7 +20,7 @@ export const HomeScreen = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     const manager = VizbeeHomeSSOManager.getInstance();
-    manager.start(new RNDemoAppVizbeeHomeSSODelegate());
+    manager.initialize(new RNDemoAppVizbeeHomeSSODelegate());
 
     setTimeout(() => {
       VizbeeManager.smartPrompt();
@@ -64,12 +65,12 @@ export const HomeScreen = ({ navigation }: { navigation: any }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#9FA8DA",
+    backgroundColor: Colors.background,
     flex: 1,
     width: "100%",
   },
   header: {
-    backgroundColor: "lightblue",
+    backgroundColor: Colors.headerBackground,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#000000",
+    color: Colors.text.primary,
   },
   headerRight: {
     flexDirection: 'row',
