@@ -20,6 +20,7 @@ export const HomeScreen = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     const manager = VizbeeHomeSSOManager.getInstance();
+    manager.enableLogging(true);
     manager.initialize(new RNDemoAppVizbeeHomeSSODelegate());
 
     setTimeout(() => {
