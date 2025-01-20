@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, StatusBar, TouchableOpacity } from "react-native";
 import {
   VizbeeCastButton,
@@ -13,15 +13,25 @@ import { useVizbeeMedia } from "../hooks/useVizbeeMedia";
 import { videos } from "../constants/VideoListContent";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Colors } from '../constants/Colors';
+import { MobileToTVMessager } from '../message/MobileToTVMessager';
 
 export const HomeScreen = ({ navigation }: { navigation: any }) => {
   const { castingState } = useVizbeeSession();
   const { castingPosition, lastCastingGuid } = useVizbeeMedia();
+  const [mobileToTVMessager] = useState(() => new MobileToTVMessager());
+  let homeSSOManager: VizbeeHomeSSOManager | undefined = undefined;
 
   useEffect(() => {
-    const manager = VizbeeHomeSSOManager.getInstance();
-    manager.enableLogging(true);
-    manager.initialize(new RNDemoAppVizbeeHomeSSODelegate());
+    
+    if (homeSSOManager) {
+      homeSSOManager = VizbeeHomeSSOManager.getInstance();
+      homeSSOManager.enableLogging(true);
+      homeSSOManager.initialize(new RNDemoAppVizbeeHomeSSODelegate());
+    }
+
+    VizbeeManager.enableLogging();
+    // Initialize mobile to TV messaging
+    mobileToTVMessager.listenForTVConnectionState();
 
     setTimeout(() => {
       VizbeeManager.smartPrompt();

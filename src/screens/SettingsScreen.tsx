@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -13,12 +13,14 @@ import { AccountManager } from '../account/AccountManager';
 import { RootStackParamList } from '../../App';
 import { headerStyles } from '../styles/HeaderStyles';
 import { Colors } from '../constants/Colors';
+import { MobileToTVMessager } from '../message//MobileToTVMessager';
 
 type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, 'Settings'>;
 
 export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const mobileToTVMessager = useRef(new MobileToTVMessager());
 
   const checkAuthStatus = useCallback(async () => {
     const authToken = await Storage.getAuthToken();
@@ -28,7 +30,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
   const onSignInComplete = useCallback(() => {
     checkAuthStatus();
     navigation.goBack();
-  }, [navigation]);
+  }, [navigation, checkAuthStatus]);
 
   const handleSignInPress = useCallback(() => {
     navigation.navigate('Login', { 
@@ -54,14 +56,32 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
     }
   };
 
+  const sendMessageToTV = async () => {
+    const isConnected = await mobileToTVMessager.current.isConnectedToTV();
+    
+    if (isConnected) {
+      const message = mobileToTVMessager.current.getMessage()
+      mobileToTVMessager.current.send(
+        mobileToTVMessager.current.kEventName,
+        message
+      );
+      Alert.alert('Message Sent', `Message sent to TV with event name: ${mobileToTVMessager.current.kEventName} message: ${JSON.stringify(message)}`);
+    } else {
+      Alert.alert('Error', 'Not connected to the TV to send the message');
+    }
+  };
+
   useEffect(() => {
     checkAuthStatus();
-  }, []);
+  }, [checkAuthStatus]);
 
   return (
     <View style={styles.container}>
       <View style={headerStyles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={headerStyles.backButton}>
+        <TouchableOpacity 
+          onPress={() => navigation.goBack()} 
+          style={headerStyles.backButton}
+        >
           <Text style={headerStyles.backArrow}>←</Text>
         </TouchableOpacity>
         <Text style={headerStyles.headerTitle}>Settings</Text>
@@ -80,6 +100,14 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
         ) : (
           <Text style={styles.chevron}>›</Text>
         )}
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.menuItem}
+        onPress={sendMessageToTV}
+      >
+        <Text style={styles.menuText}>Send Message to TV</Text>
+        <Text style={styles.chevron}>›</Text>
       </TouchableOpacity>
     </View>
   );
