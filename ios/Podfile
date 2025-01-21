@@ -31,6 +31,8 @@ target 'ReactNativeDemoApp' do
 
   pod 'google-cast-sdk-no-bluetooth-dynamic', '4.8.0'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  
   target 'ReactNativeDemoAppTests' do
     inherit! :complete
     # Pods for testing

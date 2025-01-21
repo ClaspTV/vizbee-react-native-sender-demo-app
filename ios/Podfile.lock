@@ -936,9 +936,9 @@ PODS:
   - React-Mapbuffer (0.74.5):
     - glog
     - React-debug
-  - react-native-safe-area-context (4.10.8):
+  - react-native-safe-area-context (4.14.1):
     - React-Core
-  - react-native-slider (4.5.2):
+  - react-native-slider (4.5.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -959,7 +959,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-video (6.4.3):
+  - react-native-video (6.8.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -973,7 +973,7 @@ PODS:
     - React-featureflags
     - React-graphics
     - React-ImageManager
-    - react-native-video/Video (= 6.4.3)
+    - react-native-video/Video (= 6.8.2)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-rendererdebug
@@ -981,7 +981,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-video/Video (6.4.3):
+  - react-native-video/Video (6.8.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1231,7 +1231,13 @@ PODS:
     - React-logger (= 0.74.5)
     - React-perflogger (= 0.74.5)
     - React-utils (= 0.74.5)
-  - RNGestureHandler (2.18.1):
+  - RNCAsyncStorage (2.1.0):
+    - React-Core
+  - RNCMaskedView (0.1.11):
+    - React
+  - RNDeviceInfo (14.0.2):
+    - React-Core
+  - RNGestureHandler (2.21.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1252,7 +1258,52 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNVectorIcons (10.1.0):
+  - RNReanimated (3.16.6):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated (= 3.16.6)
+    - RNReanimated/worklets (= 3.16.6)
+    - Yoga
+  - RNReanimated/reanimated (3.16.6):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated/apple (= 3.16.6)
+    - Yoga
+  - RNReanimated/reanimated/apple (3.16.6):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1273,12 +1324,81 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNVizbeeSenderSdk (1.1.32):
+  - RNReanimated/worklets (3.16.6):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNScreens (4.4.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-RCTImage
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNVectorIcons (10.2.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNVizbeeHomeSSOSenderSdk (1.0.0):
+    - React
+    - VizbeeHomeSSOKit
+    - VizbeeKit
+  - RNVizbeeSenderSdk (1.1.42-rc.5):
     - React
     - VizbeeKit
   - SocketRocket (0.7.0)
-  - VizbeeHomeOSKit (1.0.2)
-  - VizbeeKit (6.6.1):
+  - VizbeeHomeOSKit (1.0.3)
+  - VizbeeHomeSSOKit (1.0.1)
+  - VizbeeKit (6.7.2):
     - VizbeeHomeOSKit
   - Yoga (0.0.0)
 
@@ -1342,8 +1462,14 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - RNVizbeeHomeSSOSenderSdk (from `../node_modules/react-native-vizbee-homesso-sender-sdk`)
   - RNVizbeeSenderSdk (from `../node_modules/react-native-vizbee-sender-sdk`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -1351,6 +1477,7 @@ SPEC REPOS:
   https://git.vizbee.tv/Vizbee/Specs.git:
     - google-cast-sdk-no-bluetooth-dynamic
     - VizbeeHomeOSKit
+    - VizbeeHomeSSOKit
     - VizbeeKit
   trunk:
     - SocketRocket
@@ -1469,10 +1596,22 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  RNVizbeeHomeSSOSenderSdk:
+    :path: "../node_modules/react-native-vizbee-homesso-sender-sdk"
   RNVizbeeSenderSdk:
     :path: "../node_modules/react-native-vizbee-sender-sdk"
   Yoga:
@@ -1510,9 +1649,9 @@ SPEC CHECKSUMS:
   React-jsitracing: 3b6060bbf5317663667e1dd93560c7943ab86ccc
   React-logger: 257858bd55f3a4e1bc0cf07ddc8fb9faba6f8c7c
   React-Mapbuffer: 6c1cacdbf40b531f549eba249e531a7d0bfd8e7f
-  react-native-safe-area-context: b7daa1a8df36095a032dff095a1ea8963cb48371
-  react-native-slider: ce295d2bf830a7990af05b0bd70ab28c133e230c
-  react-native-video: b3ba8f424c8c3f54dd9289d47bbe60fbc09bc986
+  react-native-safe-area-context: 141eca0fd4e4191288dfc8b96a7c7e1c2983447a
+  react-native-slider: 646f6727b04b619ec62d6547fe90b8f561950036
+  react-native-video: 0d5d432c94ee0dafe05ed4927db19ed89b8c3ea5
   React-nativeconfig: ba9a2e54e2f0882cf7882698825052793ed4c851
   React-NativeModulesApple: 8d11ff8955181540585c944cf48e9e7236952697
   React-perflogger: ed4e0c65781521e0424f2e5e40b40cc7879d737e
@@ -1536,14 +1675,21 @@ SPEC CHECKSUMS:
   React-runtimescheduler: cfbe85c3510c541ec6dc815c7729b41304b67961
   React-utils: f242eb7e7889419d979ca0e1c02ccc0ea6e43b29
   ReactCommon: f7da14a8827b72704169a48c929bcde802698361
-  RNGestureHandler: efed690b8493a00b99654043daeb1335276ac4a2
-  RNVectorIcons: 2a2f79274248390b80684ea3c4400bd374a15c90
-  RNVizbeeSenderSdk: c7b174a0dffff94711e9253ae2db94fa94696c93
+  RNCAsyncStorage: cc6479c4acd84cc7004946946c8afe30b018184d
+  RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
+  RNDeviceInfo: 3f2e5fcca3637f75c6d30ba287293c2f97206781
+  RNGestureHandler: 6fee3422fd8c81c5ee756fa72e3d1780e9943d9d
+  RNReanimated: 5a19d7bc2fd0f1929d81301359a627d83c3684be
+  RNScreens: 024c5cb8569dea6667b5c73e6c119beb83f686f0
+  RNVectorIcons: 845eda5c7819bd29699cafd0fc98c9d4afe28c96
+  RNVizbeeHomeSSOSenderSdk: 1918cb1cb9871f741cc4338f19a43049034ce9ef
+  RNVizbeeSenderSdk: 048f933f740499a263dbfff27bdb55d859bafb05
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  VizbeeHomeOSKit: 4b0b58ee4abdac41005db135660f6f37a26bff84
-  VizbeeKit: 2eb3cf435a95c0798bbc225355441c6379ab6dea
+  VizbeeHomeOSKit: fa670edbb8beffef4b3e70c276dcdfb0c5ecbed0
+  VizbeeHomeSSOKit: 3773cbf0105f8fdd934fa1131d81063ace755195
+  VizbeeKit: bf85a6e7802fa9170f07775fa436563c2f26184d
   Yoga: 2246eea72aaf1b816a68a35e6e4b74563653ae09
 
-PODFILE CHECKSUM: 45dce7b15640d062c26097e60121fc3071f5a863
+PODFILE CHECKSUM: b428ccaab488937492f83127728d38e59ad233e7
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.14.3

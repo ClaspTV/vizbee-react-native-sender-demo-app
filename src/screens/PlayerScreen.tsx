@@ -15,6 +15,7 @@ import { VideoPlayer } from "../components/VideoPlayer";
 import { CastingOverlay } from "../components/CastingOverlay";
 import { VideoListItem } from "../components/VideoListItem";
 import { videos } from "../constants/VideoListContent";
+import { Colors } from '../constants/Colors';
 
 const Back = require("../../assets/back.png");
 
@@ -124,10 +125,10 @@ export const PlayerScreen = ({ route, navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#9FA8DA",
+    backgroundColor: Colors.background,
   },
   header: {
-    backgroundColor: "lightblue",
+    backgroundColor: Colors.headerBackground,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#000000",
+    color: Colors.text.primary,
     paddingLeft: 10,
   },
   backButton: {

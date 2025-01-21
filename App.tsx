@@ -7,16 +7,30 @@ import {
   VizbeeCastBar,
   //@ts-ignore
 } from "react-native-vizbee-sender-sdk";
-
 import { HomeScreen } from "./src/screens/HomeScreen";
 import { PlayerScreen } from "./src/screens/PlayerScreen";
+import { LoginScreen } from "./src/screens/LoginScreen";
+import { SettingsScreen } from "./src/screens/SettingsScreen";
+import { navigationRef } from "./src/utils/NavigationService";
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Player: undefined;
+  Login: {
+    isFromTVSignIn: boolean;
+    onSignInComplete?: () => void;
+  };
+  Settings: undefined;
+};
+
+
+const Stack = createStackNavigator<RootStackParamList>();
+
 const App = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <Stack.Navigator>
             <Stack.Screen
               name="Home"
@@ -26,6 +40,16 @@ const App = () => {
             <Stack.Screen
               name="Player"
               component={PlayerScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Settings"
+              component={SettingsScreen}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>
